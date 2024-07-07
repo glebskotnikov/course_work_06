@@ -1,0 +1,26 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-6">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ object.full_name }} ({{ object.pk }})</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">email: {{ object.email }}</p>
+                        <p class="card-text">комментарий: {{ object.comment }}</p>
+                        <div class="btn-group">
+                            <a href="{% url 'clients:list' %}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Назад</a>
+                            <a href="{% url 'clients:edit' object.pk%}" type="button"
+                               class="btn btn-sm btn-outline-warning">Редактировать</a>
+                            <a href="{% url 'clients:delete' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

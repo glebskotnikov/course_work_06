@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -10,15 +11,17 @@ class Mailing(models.Model):
         ('monthly', 'Раз в месяц'),
     ]
 
-    send_time = models.TimeField(verbose_name='время рассылки')
+    STATUS_CHOICES = [('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена')]
+
+    send_date_time = models.DateTimeField(default=timezone.now, verbose_name='дата и время рассылки')
     send_frequency = models.CharField(max_length=10, choices=SEND_FREQUENCY_CHOICES, verbose_name='периодичность')
-    status = models.CharField(max_length=20, default='создана', verbose_name='статус')
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='created', verbose_name='статус')
+
     clients = models.ManyToManyField('clients.Client', related_name='mailings')
+    message = models.ForeignKey('mailings.Message', on_delete=models.CASCADE, related_name='message', verbose_name='сообщение', **NULLABLE)
 
     def __str__(self):
-        return f"{self.get_send_frequency_display()} рассылка в {self.send_time}"
+        return f"{self.get_send_frequency_display()} рассылка в {self.send_date_time}"
 
     class Meta:
         verbose_name = 'рассылка'
@@ -26,7 +29,6 @@ class Mailing(models.Model):
 
 
 class Message(models.Model):
-    mailing = models.ForeignKey('mailings.Mailing', on_delete=models.CASCADE, related_name='messages')
     subject = models.CharField(max_length=255, verbose_name='тема письма')
     body = models.TextField(verbose_name='тело письма')
 

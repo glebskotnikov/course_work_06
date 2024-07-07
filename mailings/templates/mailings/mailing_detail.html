@@ -1,0 +1,30 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-6">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ object.subject }} ({{ object.pk }})</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">время рассылки: {{ object.send_time }}</p>
+                        <p class="card-text">периодичность: {{ object.send_frequency }}</p>
+                        <p class="card-text">статус: {{ object.status }}</p>
+                        <p class="card-text">начало: {{ object.start_datetime }}</p>
+                        <p class="card-text">конец: {{ object.end_datetime }}</p>
+                        <p class="card-text">клиенты: {{ object.clients }}</p>
+                        <div class="btn-group">
+                            <a href="{% url 'mailings:list' %}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Назад</a>
+                            <a href="{% url 'mailings:edit' object.pk%}" type="button"
+                               class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a href="{% url 'mailings:delete' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
