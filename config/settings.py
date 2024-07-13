@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-from os import getenv
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 
     'mailings',
     'clients',
+    'delivery',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -125,9 +127,18 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
+EMAIL_HOST_USER = "glskotnikov@yandex.ru"
+EMAIL_HOST_PASSWORD = os.environ.get('YANDEX_SMTP_PASS')
+EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'glskotnikov@yandex.ru'
-EMAIL_HOST_PASSWORD = getenv('YANDEX_SMTP_PASS')
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CRONJOBS = [
+    ('*/5 * * * *', 'mailings.cron.process_mailings',
+     '> /tmp/scheduled_job.log')
+]

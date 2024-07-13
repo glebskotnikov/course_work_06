@@ -11,11 +11,13 @@ class Mailing(models.Model):
         ('monthly', 'Раз в месяц'),
     ]
 
-    STATUS_CHOICES = [('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена')]
+    STATUS_CHOICES = [('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена'), ('canceled', 'Отменена'), ('error', 'Ошибка'),]
 
+    name = models.CharField(max_length=50, verbose_name='название рассылки', **NULLABLE)
     send_date_time = models.DateTimeField(default=timezone.now, verbose_name='дата и время рассылки')
     send_frequency = models.CharField(max_length=10, choices=SEND_FREQUENCY_CHOICES, verbose_name='периодичность')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='created', verbose_name='статус')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='created', verbose_name='статус рассылки')
+    attempts = models.IntegerField(default=0, verbose_name='попытки рассылки')
 
     clients = models.ManyToManyField('clients.Client', related_name='mailings')
     message = models.ForeignKey('mailings.Message', on_delete=models.CASCADE, related_name='message', verbose_name='сообщение', **NULLABLE)

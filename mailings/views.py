@@ -1,12 +1,13 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
+from delivery.models import DeliveryAttempt
 from mailings.models import Mailing, Message
 
 
 class MailingCreateView(CreateView):
     model = Mailing
-    fields = ['send_time', 'send_frequency', 'status', 'start_datetime', 'end_datetime', 'clients']
+    fields = ['name', 'send_date_time', 'send_frequency', 'status', 'message', 'clients']
     success_url = reverse_lazy('mailings:list')
 
 
@@ -17,10 +18,16 @@ class MailingListView(ListView):
 class MailingDetailView(DetailView):
     model = Mailing
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['delivery_attempts'] = DeliveryAttempt.objects.filter(mailing=self.object)
+
+        return context
+
 
 class MailingUpdateView(UpdateView):
     model = Mailing
-    fields = ['send_time', 'send_frequency', 'status', 'start_datetime', 'end_datetime', 'clients']
+    fields = ['name', 'send_date_time', 'send_frequency', 'status', 'message', 'clients']
     success_url = reverse_lazy('mailings:list')
 
 

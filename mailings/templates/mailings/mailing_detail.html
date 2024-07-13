@@ -3,28 +3,83 @@
     <div class="col-12">
         <div class="row text-center">
             <div class="col-6">
-                <div class="card" style="width: 20rem;">
+                <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{ object.subject }} ({{ object.pk }})</h4>
+                        <h4 class="card-title">{{ object.name }}</h4>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">время рассылки: {{ object.send_time }}</p>
-                        <p class="card-text">периодичность: {{ object.send_frequency }}</p>
-                        <p class="card-text">статус: {{ object.status }}</p>
-                        <p class="card-text">начало: {{ object.start_datetime }}</p>
-                        <p class="card-text">конец: {{ object.end_datetime }}</p>
-                        <p class="card-text">клиенты: {{ object.clients }}</p>
-                        <div class="btn-group">
-                            <a href="{% url 'mailings:list' %}" type="button"
-                               class="btn btn-sm btn-outline-secondary">Назад</a>
-                            <a href="{% url 'mailings:edit' object.pk%}" type="button"
-                               class="btn btn-sm btn-outline-warning">Edit</a>
-                            <a href="{% url 'mailings:delete' object.pk %}" type="button"
-                               class="btn btn-sm btn-outline-danger">Delete</a>
-                        </div>
+                        <style>
+                            .thSeparator {
+                                border-right: 1px solid #dddddd;
+                            }
+                        </style>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="thSeparator">Время рассылки</th>
+                                <td>{{ object.send_date_time }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="thSeparator">Периодичность</th>
+                                <td>{{ object.send_frequency }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="thSeparator">Сообщение</th>
+                                <td>{{ object.message }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="thSeparator">Статус рассылки</th>
+                                <td>{{ object.status }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="thSeparator">Клиенты</th>
+                                <td>{{ object.clients.all|join:", " }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                            <div class="btn-group">
+                                <a href="{% url 'mailings:list' %}" type="button"
+                                   class="btn btn-sm btn-outline-secondary">Назад</a>
+                                <a href="{% url 'mailings:edit' object.pk %}" type="button"
+                                   class="btn btn-sm btn-outline-warning">Edit</a>
+                                <a href="{% url 'mailings:delete' object.pk %}" type="button"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Попытка рассылки: {{ mailing.name }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Дата и время последней попытки</th>
+                                <th>Статус попытки</th>
+                                <th>Ответ почтового сервера</th>
+                                <th>Сообщение об ошибке</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for attempt in delivery_attempts %}
+                                <tr>
+                                    <td>{{ attempt.timestamp }}</td>
+                                    <td>{{ attempt.get_status_display }}</td>
+                                    <td>{{ attempt.server_response }}</td>
+                                    <td>{{ attempt.error_message }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3">Нет попыток доставки для этой рассылки</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}
