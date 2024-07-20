@@ -1,0 +1,393 @@
+[
+  {
+    "model": "clients.client",
+    "pk": 1,
+    "fields": {
+      "email": "ivan@mail.ru",
+      "full_name": "Иван Иванов",
+      "comment": "первый клиент"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 2,
+    "fields": {
+      "email": "petr@mail.ru",
+      "full_name": "Петр Петров",
+      "comment": "второй клиент"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 3,
+    "fields": {
+      "email": "hren@mail.ru",
+      "full_name": "Хрен Хреновый",
+      "comment": "третий клиент"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 5,
+    "fields": {
+      "email": "hren3@mail.ru",
+      "full_name": "Хрен с Горы",
+      "comment": "тест"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 6,
+    "fields": {
+      "email": "hren4@mail.ru",
+      "full_name": "hren4",
+      "comment": "hren4"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 7,
+    "fields": {
+      "email": "glskotnikov@yandex.ru",
+      "full_name": "Глеб Скотников",
+      "comment": "Классный парень"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 2,
+    "fields": {
+      "mailing": 4,
+      "timestamp": "2024-07-10T22:27:25.009Z",
+      "status": "successful",
+      "server_response": null,
+      "error_message": null
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 13,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-12T21:45:03.487Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720820703-1joYOiDXs8c0-IVdVzYWD', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 14,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-12T22:20:02.841Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720822802-1Kp6lhDm4qM0-PxOIh260', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 15,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-12T22:50:02.851Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720824602-1opcx51OjqM0-v8u3LUqq', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 16,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T02:13:24.924Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720836804-NDWdgj1JjGk0-WDWlUSWf', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 17,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T02:35:03.776Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720838103-2ZWUW32OpuQ0-3KnoEOdK', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 18,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T02:40:02.999Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720838402-1eW9xo4o70U0-7phztsQD', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 19,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:05:03.536Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720843503-25Y5PHLo50U0-oU9z4DGp', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 20,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:13:58.040Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720844037-uDYD86MOfa60-0WRM0gxK', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 21,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:15:03.034Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720844102-1FYfcTE7ZSw0-ZV2oKIsV', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 22,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:20:03.781Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720844403-1KYmUELOjeA0-a7wCD7JS', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 23,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:25:03.336Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720844703-1PYEtN2JbuQ0-gUGFOiCC', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 24,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:30:03.212Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720845002-1UY3Rc5o6eA0-6HMoSxwT', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 25,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:50:03.560Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720846203-1oYd0P3JZa60-Daw2Age4', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 26,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T04:55:03.752Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720846503-2tYWNP3Ija60-SCgs19b8', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 27,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T05:00:02.467Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720846802-10Z7FbCoBCg0-uim8yS6M', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 28,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T05:05:04.058Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720847103-25Zjp92nG0U0-02ROxzBS', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 29,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T05:10:03.780Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720847403-1AZLXW3ZtGk0-BRemGJjC', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 30,
+    "fields": {
+      "mailing": 15,
+      "timestamp": "2024-07-13T05:15:03.696Z",
+      "status": "successful",
+      "server_response": null,
+      "error_message": null
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 36,
+    "fields": {
+      "mailing": 18,
+      "timestamp": "2024-07-13T05:35:02.814Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720848902-1ZZrT4F7Za60-X4ot4kdu', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 37,
+    "fields": {
+      "mailing": 19,
+      "timestamp": "2024-07-13T05:35:04.349Z",
+      "status": "failed",
+      "server_response": null,
+      "error_message": "(503, b'5.5.4 Error: send AUTH command first. 1720848904-3ZZl9a4WoCg0-sjS4zYgD', 'glskotnikov@yandex.ru')"
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 38,
+    "fields": {
+      "mailing": 18,
+      "timestamp": "2024-07-13T05:40:04.054Z",
+      "status": "successful",
+      "server_response": null,
+      "error_message": null
+    }
+  },
+  {
+    "model": "delivery.deliveryattempt",
+    "pk": 39,
+    "fields": {
+      "mailing": 19,
+      "timestamp": "2024-07-13T05:40:07.106Z",
+      "status": "successful",
+      "server_response": null,
+      "error_message": null
+    }
+  },
+  {
+    "model": "mailings.mailing",
+    "pk": 4,
+    "fields": {
+      "name": "Тестовая рассылка1",
+      "send_date_time": "2024-07-10T15:30:00Z",
+      "send_frequency": "weekly",
+      "status": "completed",
+      "attempts": 0,
+      "message": 5,
+      "clients": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "mailings.mailing",
+    "pk": 15,
+    "fields": {
+      "name": "Тестовая рассылка2",
+      "send_date_time": "2024-07-12T21:42:38Z",
+      "send_frequency": "daily",
+      "status": "completed",
+      "attempts": 18,
+      "message": 6,
+      "clients": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "mailings.mailing",
+    "pk": 18,
+    "fields": {
+      "name": "Тестовая рассылка3",
+      "send_date_time": "2024-07-13T05:31:41Z",
+      "send_frequency": "daily",
+      "status": "completed",
+      "attempts": 2,
+      "message": 6,
+      "clients": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "mailings.mailing",
+    "pk": 19,
+    "fields": {
+      "name": "Тестовая рассылка4",
+      "send_date_time": "2024-07-13T05:32:01Z",
+      "send_frequency": "daily",
+      "status": "completed",
+      "attempts": 2,
+      "message": 7,
+      "clients": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "mailings.message",
+    "pk": 5,
+    "fields": {
+      "subject": "Тестовое сообщение",
+      "body": "Привет! Я тестовая рассылка. Надеюсь я доставлена до тебя :)"
+    }
+  },
+  {
+    "model": "mailings.message",
+    "pk": 6,
+    "fields": {
+      "subject": "Тестовое сообщение2",
+      "body": "Привет! Это новый тест!"
+    }
+  },
+  {
+    "model": "mailings.message",
+    "pk": 7,
+    "fields": {
+      "subject": "Тестовое сообщение3",
+      "body": "Новый тест! Тестовое сообщение3"
+    }
+  }
+]
