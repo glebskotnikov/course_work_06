@@ -3,12 +3,13 @@ import random
 import string
 
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView as LoginBaseView
 from django.contrib.auth.views import LogoutView as LogoutBaseView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, FormView, UpdateView
+from django.views.generic import CreateView, FormView, UpdateView, ListView
 from users.forms import UserRegisterForm, UserPasswordResetForm, UserProfileForm
 from users.models import User
 from config import settings
@@ -84,3 +85,23 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = User
+    template_name = 'users/user_list.html'
+    context_object_name = 'object_list'
+    extra_context = {"title": "Пользователи"}
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='manager').exists()
+
+
+def toggle_activity(request, user_email):
+    user = get_object_or_404(User, email=user_email)
+    if user.is_active:
+        user.is_active = False
+    else:
+        user.is_active = True
+    user.save()
+    return redirect('users:users_list')

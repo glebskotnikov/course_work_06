@@ -1,26 +1,45 @@
 {% extends 'clients/base.html' %}
 {% block content %}
     <div class="row">
-    <div class="col-12 mb-5">
-        <a class="btn btn-info" href="{% url 'mailings:create' %}">Создать рассылку</a>
-    </div>
-    {% for object in object_list %}
-        <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <p class="card-text">{{ object.name}}</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Статус рассылки: {{ object.status}}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{% url 'mailings:view' object.pk %}" type="button"
-                               class="btn btn-sm btn-outline-secondary">View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-12 mb-5">
+            {% if user.is_authenticated and not user.is_manager %}
+                <a class="btn btn-info" href="{% url 'mailings:create' %}">Создать рассылку</a>
+            {% endif %}
         </div>
-    {% endfor %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Статус</th>
+                {% if user.is_manager or user.is_superuser %}
+                    <th scope="col">Владелец</th>
+                {% endif %}
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.name }}</td>
+                        {% if object.status == "created" or object.status == "started" %}
+                            <td class="table-primary">{{ object.get_status_display }}</td>
+                        {% elif object.status == "completed" %}
+                            <td class="table-success">{{ object.get_status_display }}</td>
+                        {% elif object.status == "canceled" %}
+                            <td class="table-danger">{{ object.get_status_display }}</td>
+                        {% elif object.status == "error" %}
+                            <td class="table-warning">{{ object.get_status_display }}</td>
+                        {% else %}
+                            <td>{{ object.get_status_display }}</td>
+                        {% endif %}
+                        {% if user.is_manager or user.is_superuser %}
+                            <td>{{ object.owner.email }}</td>
+                        {% endif %}
+                        <td><a href="{% url 'mailings:view' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Показать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

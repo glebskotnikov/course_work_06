@@ -5,9 +5,9 @@ from mailings.models import Mailing, Message
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('send_date_time', 'send_frequency', 'status')
+    list_display = ('name', 'send_date_time', 'send_frequency', 'status', 'owner')
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'body')
+    list_display = ('subject', 'body', 'owner')
