@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -13,11 +14,13 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('clients:list')
 
     def form_valid(self, form):
+        response = super().form_valid(form)
         client = form.save()
         user = self.request.user
         client.owner = user
         client.save()
-        return super().form_valid(form)
+        cache.delete(f'unique_clients_{user.id}')
+        return response
 
 
 class ClientListView(LoginRequiredMixin, ListView):
@@ -50,10 +53,22 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ClientForm
     success_url = reverse_lazy('clients:list')
 
+    def form_valid(self, form):
+        user = self.request.user
+        response = super().form_valid(form)
+        cache.delete(f'unique_clients_{user.id}')
+        return response
+
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('clients:list')
+
+    def delete(self, request, *args, **kwargs):
+        user = self.request.user
+        response = super().delete(request, *args, **kwargs)
+        cache.delete(f'unique_clients_{user.id}')
+        return response
 
     def get_object(self, queryset=None):
         obj = super().get_object()

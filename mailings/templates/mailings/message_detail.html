@@ -1,4 +1,4 @@
-{% extends 'clients/base.html' %}
+{% extends 'main/base.html' %}
 {% block content %}
     <div class="col-12">
         <div class="row text-center">
@@ -14,9 +14,9 @@
                             <a href="{% url 'mailings:message-list' %}" type="button"
                                class="btn btn-sm btn-outline-secondary">Назад</a>
                             <a href="{% url 'mailings:message-update' object.pk%}" type="button"
-                               class="btn btn-sm btn-outline-warning">Edit</a>
+                               class="btn btn-sm btn-outline-warning">Редактировать</a>
                             <a href="{% url 'mailings:message-delete' object.pk %}" type="button"
-                               class="btn btn-sm btn-outline-danger">Delete</a>
+                               class="btn btn-sm btn-outline-danger">Удалить</a>
                         </div>
                     </div>
                 </div>

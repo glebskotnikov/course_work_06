@@ -11,18 +11,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+dot_env = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path=dot_env)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6jtbj67%ui8@(3w4)1gcf+pfryg#!sphs=9mb#^7+)@-$u+%@!'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -36,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'main',
     'mailings',
     'clients',
     'delivery',
     'django_crontab',
     'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +85,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mailings',
-        'USER': 'postgres',
-        'PASSWORD': 'skypro2023'
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
     }
 }
 
@@ -137,12 +143,14 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'users:login'
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "glskotnikov@yandex.ru"
-EMAIL_HOST_PASSWORD = os.environ.get('YANDEX_SMTP_PASS')
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('YANDEX_SMTP_PASS')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', False) == 'True'
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -151,3 +159,11 @@ CRONJOBS = [
     ('*/5 * * * *', 'mailings.cron.process_mailings',
      '> /tmp/scheduled_job.log')
 ]
+
+CACHE_ENABLED = True
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv('REDIS_URL'),
+    }
+}

@@ -1,16 +1,14 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import (
     CreateView,
     ListView,
     DetailView,
     UpdateView,
     DeleteView,
-    TemplateView,
 )
 
 from delivery.models import DeliveryAttempt
@@ -28,6 +26,8 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         user = self.request.user
         mailing.owner = user
         mailing.save()
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
         return super().form_valid(form)
 
 
@@ -78,6 +78,13 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
+    def form_valid(self, form):
+        user = self.request.user
+        response = super().form_valid(form)
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
+        return response
+
 
 class MailingDeleteView(LoginRequiredMixin, DeleteView):
     model = Mailing
@@ -89,6 +96,13 @@ class MailingDeleteView(LoginRequiredMixin, DeleteView):
             raise Http404
         return obj
 
+    def delete(self, request, *args, **kwargs):
+        user = self.request.user
+        response = super().delete(request, *args, **kwargs)
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
+        return response
+
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
@@ -96,11 +110,14 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("mailings:message-list")
 
     def form_valid(self, form):
+        response = super().form_valid(form)
         message = form.save()
         user = self.request.user
         message.owner = user
         message.save()
-        return super().form_valid(form)
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
+        return response
 
 
 class MessageListView(LoginRequiredMixin, ListView):
@@ -134,6 +151,13 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
     form_class = MessageForm
     success_url = reverse_lazy("mailings:message-list")
 
+    def form_valid(self, form):
+        user = self.request.user
+        response = super().form_valid(form)
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
+        return response
+
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
@@ -144,3 +168,10 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
         if not self.request.user.is_superuser and obj.owner != self.request.user:
             raise Http404
         return obj
+
+    def delete(self, request, *args, **kwargs):
+        user = self.request.user
+        response = super().delete(request, *args, **kwargs)
+        cache.delete(f'total_mailings_{user.id}')
+        cache.delete(f'active_mailings_{user.id}')
+        return response

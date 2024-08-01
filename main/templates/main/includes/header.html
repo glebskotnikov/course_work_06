@@ -2,15 +2,19 @@
     {% if user.is_manager %}
         <h5 class="my-0 mr-md-auto font-weight-normal">Сервис менеджера</h5>
         <nav class="ms-5 d-flex">
+            <a class="p-2 me-1 btn btn-outline-primary" href="{% url 'main:index' %}">Главная</a>
             <a class="p-2 me-1 btn btn-info" href="{% url 'mailings:list' %}">Рассылки</a>
             <a class="p-2 me-1 btn btn-secondary" href="{% url 'users:users_list' %}">Пользователи</a>
+            <a class="p-2 me-1 btn btn-outline-secondary" href="{% url 'blog:list' %}">Блоги</a>
         </nav>
     {% else %}
         <h5 class="my-0 mr-md-auto font-weight-normal">Сервис рассылок</h5>
         <nav class="ms-5 d-flex">
+            <a class="p-2 me-1 btn btn-outline-primary" href="{% url 'main:index' %}">Главная</a>
             <a class="p-2 me-1 btn btn-dark" href="{% url 'clients:list' %}">Клиенты</a>
             <a class="p-2 me-1 btn btn-info" href="{% url 'mailings:list' %}">Рассылки</a>
             <a class="p-2 me-1 btn btn-secondary" href="{% url 'mailings:message-list' %}">Сообщения</a>
+            <a class="p-2 me-1 btn btn-outline-secondary" href="{% url 'blog:list' %}">Блоги</a>
         </nav>
     {% endif %}
     <nav class="ms-5 d-flex ms-auto">
