@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-6">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ object.title }}</h4>
+                        {% if user.is_superuser or perms.blog.change_blog %}
+                            <a href="{% url 'blog:edit' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-warning mt-2 mb-2">Редактировать</a>
+                            <a href="{% url 'blog:delete' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-danger mt-2 mb-2">Удалить</a>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ object.image|mediapath }}" class="card-img-top" alt="...">
+                        <p class="card-text">{{ object.content }}</p>
+                        <p class="card-text">Опубликовано: {{ object.publication_date }}</p>
+                        <p class="card-text">Просмотры: {{ object.views_count }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'blog:list' %}" class="btn btn-sm btn-outline-secondary mt-2 mb-2">Все блоги</a>
+                        <a href="{% url 'main:index' %}" class="btn btn-sm btn-outline-primary mt-2 mb-2">На главную</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

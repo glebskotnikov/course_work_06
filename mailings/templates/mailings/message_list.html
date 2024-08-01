@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-5">
+        {% if user.is_authenticated %}
+            <a class="btn btn-secondary" href="{% url 'mailings:message-create' %}">Создать сообщение</a>
+        {% endif %}
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Тема сообщения</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object|title }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'mailings:message-detail' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">Показать</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

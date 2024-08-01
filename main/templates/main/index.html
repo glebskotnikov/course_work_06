@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+{% load my_tags %}
+{% block content %}
+    <h3>Статистика</h3>
+    <p>Всего рассылок: {{ total_mailings }}</p>
+    <p>Активных рассылок: {{ active_mailings }}</p>
+    <p>Уникальных клиентов для рассылок: {{ unique_clients }}</p>
+    <h4>Статьи из блога:</h4>
+    <div class="row text-center">
+        {% for post in random_blog_posts %}
+            <div class="col-md-4">
+                <div class="card" style="width: 20rem; margin-bottom: 10px;">
+                    <div class="card-header">
+                        <h5>{{ post.title }}</h5>
+                    </div>
+                    <div class="card-body" style="overflow: auto; width: 20rem;">
+                        <img src="{{ post.image|mediapath }}" alt="{{ post.title }}" style="max-width: 100%; max-height: 200px;">
+                        <p>{{ post.content }}</p>
+                        <a href="{% url 'blog:view' post.pk %}" class="btn btn-outline-secondary">Посмотреть</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

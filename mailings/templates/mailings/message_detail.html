@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row text-center">
+            <div class="col-6">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ object.subject }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Тема письма: {{ object.subject }}</p>
+                        <p class="card-text">Текст: {{ object.body }}</p>
+                        <div class="btn-group">
+                            <a href="{% url 'mailings:message-list' %}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Назад</a>
+                            <a href="{% url 'mailings:message-update' object.pk%}" type="button"
+                               class="btn btn-sm btn-outline-warning">Редактировать</a>
+                            <a href="{% url 'mailings:message-delete' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
